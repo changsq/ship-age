@@ -32,10 +32,12 @@ export default {
       'handleLogOut'
     ]),
     logout () {
-      this.handleLogOut().then(() => {
+      // this.handleLogOut().then(() => {
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('id');
         this.$router.push({
           name: 'login'
-        })
+        // })
       })
     },
     message () {

@@ -1,5 +1,6 @@
-import Main from '@/components/main'
-import parentView from '@/components/parent-view'
+import Main from '_c/main'
+import Main1 from '_c/main1'
+import Main2 from '_c/main2'
 
 /**
  * iview-admin中meta除了原生参数外可配置的参数:
@@ -30,10 +31,9 @@ export default [
   {
     path: '/',
     name: '_home',
-    redirect: '/home',
-    component: Main,
+    redirect: '/login',
+    component: Main1,
     meta: {
-      hideInMenu: true,
       hideInBread: true,
       notCache: true
     },
@@ -46,98 +46,67 @@ export default [
           notCache: true,
           icon: 'md-home'
         },
-        component: () => import('@/view/single-page/home')
-      }
-    ]
-  },
-  {
-    path: '/components',
-    name: 'components6',
-    meta: {
-      hideInBread: true
-    },
-    component: Main,
-    children: [
-      {
-        path: '/homepage',
-        name: 'homepage',
-        meta: {
-          title: 'Home - 主页',
-          hideInMenu: false,
-          icon: 'ios-book'
-        },
         component: () => import('@/view/home/homepage.vue')
       }
     ]
   },
+
   {
-    path: '',
-    name: 'doc',
+    path: '/status_monitoring',
+    name: 'status_monitoring',
     meta: {
-      title: '文档',
-      href: 'https://lison16.github.io/iview-admin-doc/#/',
-      icon: 'ios-book',
-      hideInMenu: true
-    }
-  },
-  {
-    path: '/join',
-    name: 'join',
-    component: Main,
-    meta: {
-      hideInBread: true,
-      hideInMenu: true
+      icon: 'md-git-branch',
+      title: '状态监测'
     },
+    component: () => import('@/view/components/status-monitor/index.vue'),
     children: [
       {
-        path: 'join_page',
-        name: 'join_page',
+        path: 'SM',
+        name: 'SM',
         meta: {
-          icon: '_qq',
-          title: 'QQ群'
-        },
-        component: () => import('@/view/join-page.vue')
-      }
-    ]
-  },
-  {
-    path: '/message',
-    name: 'message',
-    component: Main,
-    meta: {
-      hideInBread: true,
-      hideInMenu: true
-    },
-    children: [
-      {
-        path: 'message_page',
-        name: 'message_page',
-        meta: {
-          icon: 'md-notifications',
-          title: '消息中心'
-        },
-        component: () => import('@/view/single-page/message/index.vue')
-      }
-    ]
-  },
-  {
-    path: '/components',
-    name: 'components4',
-    meta: {
-      hideInBread: true
-    },
-    component: Main,
-    children: [
-      {
-        path: 'introduction',
-        name: 'introduction',
-        meta: {
+          changeInfo:'SM',
           icon: 'md-git-branch',
-          title: '简介'
+          title: '状态监测'
         },
-        component: () => import('@/view/components/introduction/index.vue')
+      },
+      {
+        path: 'FD',
+        name: 'FD',
+        meta: {
+          changeInfo:'FD',
+          icon: 'md-git-branch',
+          title: '故障监测'
+        },
+      },
+      {
+        path: 'LP',
+        name: 'LP',
+        meta: {
+          changeInfo:'LD',
+          icon: 'md-git-branch',
+          title: '寿命预测'
+        },
+      },
+      {
+        path: 'MD',
+        name: 'MD',
+        meta: {
+          changeInfo:'MD',
+          icon: 'md-git-branch',
+          title: '维修决策'
+        },
       }
     ]
+  },
+
+  {
+    path: '/status_monitor_main',
+    name: 'status_monitor_main',
+    meta: {
+      icon: 'md-git-branch',
+      title: '状态监测主页'
+    },
+    component: () => import('@/view/components/status-monitor-main/index.vue')
   },
   {
     path: '/components',
@@ -148,13 +117,13 @@ export default [
     component: Main,
     children: [
       {
-        path: 'setting',
-        name: 'setting',
+        path: 'fault_data',
+        name: 'fault_data',
         meta: {
           icon: 'md-git-branch',
-          title: '指标的修改与说明'
+          title: '故障数据'
         },
-        component: () => import('@/view/components/setting/index.vue')
+        component: () => import('@/view/components/fault-data/index.vue')
       }
     ]
   },
@@ -167,13 +136,13 @@ export default [
     component: Main,
     children: [
       {
-        path: 'power_sys_test',
-        name: 'power_sys_test',
+        path: 'life_data',
+        name: 'life_data',
         meta: {
           icon: 'md-git-branch',
-          title: '动力系统评测'
+          title: '寿命数据'
         },
-        component: () => import('@/view/components/power-sys-test/index.vue')
+        component: () => import('@/view/components/life-data/index.vue')
       }
     ]
   },
@@ -186,13 +155,13 @@ export default [
     component: Main,
     children: [
       {
-        path: 'power_sys_choose',
-        name: 'power_sys_choose',
+        path: 'mainten_decision',
+        name: 'mainten_decision',
         meta: {
           icon: 'md-git-branch',
-          title: '动力系统选型'
+          title: '维修决策'
         },
-        component: () => import('@/view/components/power-sys-choose/index.vue')
+        component: () => import('@/view/components/mainten-deci/index.vue')
       }
     ]
   },
@@ -205,291 +174,53 @@ export default [
     component: Main,
     children: [
       {
-        path: 'puxi',
-        name: 'puxi',
+        path: 'log_manage',
+        name: 'log_manage',
         meta: {
           icon: 'md-git-branch',
-          title: '谱系可视化'
+          title: '日志管理'
         },
-        component: () => import('@/view/components/puxi/index.vue')
+        component: () => import('@/view/components/log-manage/index.vue')
       }
     ]
   },
   {
-    path: '/update',
-    name: 'update',
+    path: '/components',
+    name: 'components6',
     meta: {
-      icon: 'md-cloud-upload',
-      hideInMenu: true,
-      title: '数据上传'
-    },
-    component: Main,
-    children: [
-      {
-        path: 'update_table_page',
-        name: 'update_table_page',
-        meta: {
-          icon: 'ios-document',
-          title: '上传Csv'
-        },
-        component: () => import('@/view/update/update-table.vue')
-      },
-      {
-        path: 'update_paste_page',
-        name: 'update_paste_page',
-        meta: {
-          icon: 'md-clipboard',
-          title: '粘贴表格数据'
-        },
-        component: () => import('@/view/update/update-paste.vue')
-      }
-    ]
-  },
-  {
-    path: '/excel',
-    name: 'excel',
-    meta: {
-      icon: 'ios-stats',
-      hideInMenu: true,
-      title: 'EXCEL导入导出'
-    },
-    component: Main,
-    children: [
-      {
-        path: 'upload-excel',
-        name: 'upload-excel',
-        meta: {
-          icon: 'md-add',
-          title: '导入EXCEL'
-        },
-        component: () => import('@/view/excel/upload-excel.vue')
-      },
-      {
-        path: 'export-excel',
-        name: 'export-excel',
-        meta: {
-          icon: 'md-download',
-          title: '导出EXCEL'
-        },
-        component: () => import('@/view/excel/export-excel.vue')
-      }
-    ]
-  },
-  {
-    path: '/tools_methods',
-    name: 'tools_methods',
-    meta: {
-      hideInMenu: true,
       hideInBread: true
     },
     component: Main,
     children: [
       {
-        path: 'tools_methods_page',
-        name: 'tools_methods_page',
+        path: 'spare_manage',
+        name: 'spare_manage',
         meta: {
-          icon: 'ios-hammer',
-          title: '工具方法',
-          beforeCloseName: 'before_close_normal'
+          icon: 'md-git-branch',
+          title: '备件管理'
         },
-        component: () => import('@/view/tools-methods/tools-methods.vue')
+        component: () => import('@/view/components/spare-manage/index.vue')
       }
     ]
   },
   {
-    path: '/i18n',
-    name: 'i18n',
+    path: '/components',
+    name: 'components7',
     meta: {
-      hideInMenu: true,
       hideInBread: true
     },
-    component: Main,
+    component: Main2,
     children: [
       {
-        path: 'i18n_page',
-        name: 'i18n_page',
+        path: 'user_manage',
+        name: 'user_manage',
         meta: {
-          icon: 'md-planet',
-          title: 'i18n - {{ i18n_page }}'
+          icon: 'md-git-branch',
+          title: '用户管理'
         },
-        component: () => import('@/view/i18n/i18n-page.vue')
+        component: () => import('@/view/components/user-manage/index.vue')
       }
     ]
   },
-  {
-    path: '/error_store',
-    name: 'error_store',
-    meta: {
-      hideInMenu: true,
-      hideInBread: true
-    },
-    component: Main,
-    children: [
-      {
-        path: 'error_store_page',
-        name: 'error_store_page',
-        meta: {
-          icon: 'ios-bug',
-          title: '错误收集'
-        },
-        component: () => import('@/view/error-store/error-store.vue')
-      }
-    ]
-  },
-  {
-    path: '/error_logger',
-    name: 'error_logger',
-    meta: {
-      hideInBread: true,
-      hideInMenu: true
-    },
-    component: Main,
-    children: [
-      {
-        path: 'error_logger_page',
-        name: 'error_logger_page',
-        meta: {
-          icon: 'ios-bug',
-          title: '错误收集'
-        },
-        component: () => import('@/view/single-page/error-logger.vue')
-      }
-    ]
-  },
-  {
-    path: '/directive',
-    name: 'directive',
-    meta: {
-      hideInBread: true,
-      hideInMenu: true
-    },
-    component: Main,
-    children: [
-      {
-        path: 'directive_page',
-        name: 'directive_page',
-        meta: {
-          icon: 'ios-navigate',
-          title: '指令'
-        },
-        component: () => import('@/view/directive/directive.vue')
-      }
-    ]
-  },
-  {
-    path: '/multilevel',
-    name: 'multilevel',
-    meta: {
-      icon: 'md-menu',
-      hideInMenu: true,
-      title: '多级菜单'
-    },
-    component: Main,
-    children: [
-      {
-        path: 'level_2_1',
-        name: 'level_2_1',
-        meta: {
-          icon: 'md-funnel',
-          title: '二级-1'
-        },
-        component: () => import('@/view/multilevel/level-2-1.vue')
-      },
-      {
-        path: 'level_2_2',
-        name: 'level_2_2',
-        meta: {
-          access: ['super_admin'],
-          icon: 'md-funnel',
-          showAlways: true,
-          title: '二级-2'
-        },
-        component: parentView,
-        children: [
-          {
-            path: 'level_2_2_1',
-            name: 'level_2_2_1',
-            meta: {
-              icon: 'md-funnel',
-              title: '三级'
-            },
-            component: () => import('@/view/multilevel/level-2-2/level-2-2-1.vue')
-          },
-          {
-            path: 'level_2_2_2',
-            name: 'level_2_2_2',
-            meta: {
-              icon: 'md-funnel',
-              title: '三级'
-            },
-            component: () => import('@/view/multilevel/level-2-2/level-2-2-2.vue')
-          }
-        ]
-      },
-      {
-        path: 'level_2_3',
-        name: 'level_2_3',
-        meta: {
-          icon: 'md-funnel',
-          title: '二级-3'
-        },
-        component: () => import('@/view/multilevel/level-2-3.vue')
-      }
-    ]
-  },
-  {
-    path: '/argu',
-    name: 'argu',
-    meta: {
-      hideInMenu: true
-    },
-    component: Main,
-    children: [
-      {
-        path: 'params/:id',
-        name: 'params',
-        meta: {
-          icon: 'md-flower',
-          title: route => `{{ params }}-${route.params.id}`,
-          notCache: true,
-          beforeCloseName: 'before_close_normal'
-        },
-        component: () => import('@/view/argu-page/params.vue')
-      },
-      {
-        path: 'query',
-        name: 'query',
-        meta: {
-          icon: 'md-flower',
-          title: route => `{{ query }}-${route.query.id}`,
-          notCache: true
-        },
-        component: () => import('@/view/argu-page/query.vue')
-      }
-    ]
-  },
-  {
-    path: '/401',
-    name: 'error_401',
-    meta: {
-      hideInMenu: true
-    },
-    component: () => import('@/view/error-page/401.vue')
-  },
-  {
-    path: '/500',
-    name: 'error_500',
-    meta: {
-      hideInMenu: true
-    },
-    component: () => import('@/view/error-page/500.vue')
-  },
-  {
-    path: '*',
-    name: 'error_404',
-    meta: {
-      hideInMenu: true
-    },
-    component: () => import('@/view/error-page/404.vue')
-  }
+
 ]

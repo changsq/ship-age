@@ -1,21 +1,22 @@
 <template >
   <div class="login1">
       <div class="mtitle1">
-          船舶绿色动力系统谱系化与适用性评估系统
+          船舶备件预测性维护保养系统
       </div>
       <div class="div1">
-        <Button class="hbutton1" type="primary" size="large" @click="showIntro">简介</Button>
-        <Button class="hbutton1" type="primary" size="large" @click="showPSC">动力系统选型</Button>
-        <Button class="hbutton1" type="primary" size="large" @click="showPST">动力系统评测</Button>
-        <Button class="hbutton1" type="primary" size="large" @click="showPuxi">谱系可视化</Button>
-        <Button class="hbutton1" type="primary" size="large" @click="showSetting">系统配置</Button>
+        <Button class="hbutton1" type="primary" size="large" @click="showSM">状态监测</Button>
+        <Button class="hbutton1" type="primary" size="large" @click="showFD">故障数据</Button>
+        <Button class="hbutton1" type="primary" size="large" @click="showLP">寿命数据</Button>
+        <Button class="hbutton1" type="primary" size="large" @click="showMD">维修决策</Button>
+        <Button class="hbutton1" type="primary" size="large" @click="showLM">日志管理</Button>
+        <Button class="hbutton1" type="primary" size="large" @click="showSpare">备件管理</Button>
+        <Button class="hbutton1" type="primary" size="large" @click="showUser">用户管理</Button>
       </div>
   </div>
 </template>
 
 <script>
-import LoginForm from '_c/login-form'
-import { mapActions } from 'vuex'
+import LoginForm from '@/components/login-form'
 import { Button } from 'ant-design-vue'
 export default {
   components: {
@@ -24,54 +25,44 @@ export default {
   },
   computed: {
     userAvatar () {
-      return this.$store.state.user.avatarImgPath
+      return 'https://bpic.588ku.com/element_origin_min_pic/01/48/78/4157443e37c196f.jpg'
     }
   },
   methods: {
-    ...mapActions([
-      'handleLogOut'
-    ]),
-    logout () {
-      this.handleLogOut().then(() => {
-        this.$router.push({
-          name: 'login'
-        })
-      })
+    showSM () {
+      const status_monitor_main = 'status_monitor_main'
+      this.$router.push({ name: status_monitor_main })
     },
-    handleClick (name) {
-      switch (name) {
-        case 'logout': this.logout()
-          break
-        case 'message': this.message()
-          break
-      }
+    showFD () {
+      const fault_data = 'fault_data'
+      this.$router.push({ name: fault_data})
     },
-    showIntro () {
-      const introduction = 'introduction'
-      this.$router.push({ name: introduction })
+    showLP () {
+      const life_data = 'life_data'
+      this.$router.push({ name: life_data })
     },
-    showPST () {
-      const power_sys_test = 'power_sys_test'
-      this.$router.push({ name: power_sys_test })
+    showMD () {
+      const mainten_decision = 'mainten_decision'
+      this.$router.push({ name: mainten_decision })
     },
-    showPSC () {
-      const introduction = 'introduction'
-      this.$router.push({ name: introduction })
+    showLM () {
+      const log_manage = 'log_manage'
+      this.$router.push({ name: log_manage })
     },
-    showPuxi () {
-      const puxi = 'puxi'
-      this.$router.push({ name: puxi })
+    showSpare () {
+      const spare_manage = 'spare_manage'
+      this.$router.push({ name: spare_manage })
     },
-    showSetting () {
-      const setting = 'setting'
-      this.$router.push({ name: setting })
+    showUser () {
+      const user_manage = 'user_manage'
+      this.$router.push({ name: user_manage })
     }
   }
 }
 </script>
 <style scoped>
 .login1 {
-    height: 100vh;
+    height: 89vh;
     background-image: url('../../assets/images/login-bg.jpg');
     background-size: cover;
     background-position: center;
@@ -81,6 +72,8 @@ export default {
 .div1{
     margin-top: 25%;
     display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 .mtitle1{
     text-align: center;
@@ -89,8 +82,6 @@ export default {
     font-weight: 1000;
 }
 .hbutton1{
-    margin-left: 11%;
     font-size: large;
-
 }
 </style>

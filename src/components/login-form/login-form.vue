@@ -47,7 +47,7 @@ export default {
       checked: false,
       autoLogin: false,
       form: {
-        userName: 'admin',
+        userName: '',
         password: ''
       }
     }
@@ -67,7 +67,6 @@ export default {
           this.$emit('on-success-valid', {
             userName: this.form.userName,
             password: this.form.password,
-            autoLogin: this.autoLogin
           })
         }
       })

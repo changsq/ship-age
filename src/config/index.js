@@ -17,13 +17,15 @@ export default {
    * @description api请求基础路径
    */
   baseUrl: {
-    dev: 'https://www.easy-mock.com/mock/5add9213ce4d0e69998a6f51/iview-admin/',
-    pro: 'https://produce.com'
+    // dev: 'https://www.easy-mock.com/mock/5add9213ce4d0e69998a6f51/iview-admin/',
+    // pro: 'https://produce.com'
+    dev: '',
+    pro: ''
   },
   /**
    * @description 默认打开的首页的路由name值，默认为home
    */
-  homeName: 'homepage',
+  homeName: 'home',
   /**
    * @description 需要加载的插件
    */

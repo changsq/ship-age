@@ -5,31 +5,81 @@ import App from './App'
 import router from './router'
 import store from './store'
 import iView from 'iview'
-import i18n from '@/locale'
 import config from '@/config'
-import importDirective from '@/directive'
-import { directive as clickOutside } from 'v-click-outside-x'
-import installPlugin from '@/plugin'
 import './index.less'
-import '@/assets/icons/iconfont.css'
-import TreeTable from 'tree-table-vue'
-import VOrgTree from 'v-org-tree'
-import 'v-org-tree/dist/v-org-tree.css'
+import dataV from '@jiaminghi/data-view'
 import Antd from 'ant-design-vue'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 import 'ant-design-vue/dist/antd.css'
+import echarts from 'echarts';
+import ElementUI from 'element-ui'
+import * as THREE from 'three'
+import * as ThreeStats from 'three-stats'
+import 'element-ui/lib/theme-chalk/index.css';
+
 // 实际打包时应该不引入mock
 /* eslint-disable */
-if (process.env.NODE_ENV !== 'production') require('@/mock')
+//                                                                                                                    
 Vue.use(Antd);
-Vue.use(iView, {
-  i18n: (key, value) => i18n.t(key, value)
+Vue.use(iView)
+Vue.use(dataV)
+Vue.prototype.$echarts = echarts
+Vue.use(ElementUI);
+Vue.use(VueAxios, axios)
+Vue.prototype.$axios = axios;
+
+axios.interceptors.request.use((config) => {
+  let token = sessionStorage.getItem('hdToken')
+  let id = sessionStorage.getItem('id')
+  if (token) {
+    config.headers.Authorization = 'Bearer ' + token
+    config.headers.operateUserId = id
+  }
+  return config;
+}, (error) => {
+  return Promise.reject(error);
 })
-Vue.use(TreeTable)
-Vue.use(VOrgTree)
+let isHandling401 = false
+function handle401Error() {
+  if (isHandling401) return; // 如果已经在处理 401 错误，直接返回
+  isHandling401 = true; // 设置标志变量
+  // 创建一个模态对话框
+  Vue.prototype.$alert('当前无权限，即将返回工作台！', '错误', {
+    confirmButtonText: '确定',
+    callback: action => {
+      if (action === 'confirm') {
+        sessionStorage.removeItem('hdToken');
+        window.parent.postMessage({showstatusMonitoring:false},'*');
+        isHandling401 = false; // 重置标志变量
+      }
+    }
+  });
+}
+// 添加响应拦截器
+axios.interceptors.response.use(
+  response => {
+    if (response.data && response.data.code === 401) {
+      handle401Error();
+    } else {
+      return response;
+    }
+  },
+  error => {
+    // 处理其他错误
+    if (error.response && error.response.status === 401) {
+      handle401Error();
+    }
+    return Promise.reject(error);
+  }
+);
+
+Vue.prototype.THREE = THREE
+Vue.prototype.ThreeStats = ThreeStats
 /**
  * @description 注册admin内置插件
  */
-installPlugin(Vue)
+
 /**
  * @description 生产环境关掉提示
  */
@@ -41,14 +91,11 @@ Vue.prototype.$config = config
 /**
  * 注册指令
  */
-importDirective(Vue)
-Vue.directive('clickOutside', clickOutside)
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
-  i18n,
   store,
   render: h => h(App)
 })
